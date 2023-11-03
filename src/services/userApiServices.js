@@ -117,17 +117,13 @@ const googleSignInService = async (userData) => {
         },
       };
     } else {
-      const generatePassword =
-        Math.random().toString(36).slice(-8) +
-        Math.random().toString(36).slice(-8);
-      const hashpass = hashUserPassWord(generatePassword);
+      const hashpass = hashUserPassWord("");
       const result = await db.User.create({
         username: userData.username,
         email: userData.email,
         password: hashpass,
         avatar: userData.avatar,
       });
-      console.log("check user", result.dataValues);
       const payload = {
         id: result.dataValues.id,
         username: result.dataValues.username,
@@ -203,6 +199,7 @@ const updateService = async (userData) => {
     };
   }
 };
+
 
 module.exports = {
   signUpService,

@@ -9,7 +9,7 @@ const handleLogin = async (req, res) => {
   try {
     let userData = req.body;
     const data = await logInService(userData);
-    res.cookie("jwt", data.DT.token, { httpOnly: true });
+    res.cookie("access_token", data.DT.token, { httpOnly: true });
     return res.status(200).json({
       EM: data.EM,
       EC: data.EC,
@@ -29,7 +29,7 @@ const handleSignUp = async (req, res) => {
   try {
     const userData = req.body;
     const data = await signUpService(userData);
-    res.cookie("jwt", data.token, { httpOnly: true });
+    res.cookie("access_token", data.token, { httpOnly: true });
     return res.status(200).json({
       EM: data.EM,
       EC: data.EC,
@@ -49,6 +49,7 @@ const handleGoogleSignIn = async (req, res) => {
   try {
     const userData = req.body;
     const data = await googleSignInService(userData);
+    res.cookie("access_token", data.DT.token, { httpOnly: true });
     res.status(200).json({
       EM: data.EM,
       EC: data.EC,
@@ -73,9 +74,19 @@ const handleUpdate = async (req, res) => {
   }
 };
 
+const handleLogOut = async (req, res) => {
+  res.clearCookie("access_token");
+  res.status(200).json({
+    EM: "Log Out Success",
+    EC: 0,
+    DT: "",
+  });
+};
+
 module.exports = {
   handleLogin,
   handleSignUp,
   handleGoogleSignIn,
   handleUpdate,
+  handleLogOut,
 };
