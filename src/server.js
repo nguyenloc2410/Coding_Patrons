@@ -1,6 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const userApiRoute = require("./routes/userApiRoute");
+const statusApiRoute = require("./routes/statusApiRoute");
 const secureCors = require("./config/cors");
 const connectDataBase = require("./config/database");
 const cookieParser = require("cookie-parser");
@@ -22,6 +23,8 @@ connectDataBase();
 
 //userApi
 userApiRoute(app);
+//statusApi
+statusApiRoute(app);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);

@@ -1,4 +1,5 @@
 const express = require("express");
+const router = express.Router();
 const {
   handleLogin,
   handleSignUp,
@@ -6,7 +7,6 @@ const {
   handleUpdate,
   handleLogOut,
 } = require("../controller/userApiController");
-const router = express.Router();
 const userApiRoute = (app) => {
   router.post("/login", handleLogin);
   router.post("/signup", handleSignUp);
