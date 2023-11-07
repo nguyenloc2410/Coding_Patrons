@@ -4,7 +4,7 @@ const cors = require("cors");
 const secureCors = (app) => {
   app.use(
     cors({
-      origin: "http://localhost:3000",
+      origin: process.env.ALLOW_WEB,
       credentials: true,
     })
   );
